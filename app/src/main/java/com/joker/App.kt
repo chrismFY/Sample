@@ -1,6 +1,7 @@
 package com.joker
 
 import android.app.Application
+import android.content.Context
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
 import dagger.hilt.android.HiltAndroidApp
@@ -11,7 +12,9 @@ import java.util.*
  */
 @HiltAndroidApp
 open class App : Application(), ViewModelStoreOwner {
-
+    companion object{
+        var appContext :Context? = null
+    }
     private val appViewModelStore: ViewModelStore by lazy {
         ViewModelStore()
     }
@@ -22,7 +25,7 @@ open class App : Application(), ViewModelStoreOwner {
 
     override fun onCreate() {
         super.onCreate()
-
+        appContext = this
 //        AutoSize.initCompatMultiProcess(this)
 //
 //        AutoSizeConfig.getInstance()
@@ -49,5 +52,10 @@ open class App : Application(), ViewModelStoreOwner {
 //                )
 //            }
 //        }
+    }
+
+    override fun onTerminate() {
+        super.onTerminate()
+        appContext = null
     }
 }

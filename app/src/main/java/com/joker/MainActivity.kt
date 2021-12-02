@@ -1,31 +1,25 @@
 package com.joker
 
 import android.os.Bundle
-import android.util.Log
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.tabs.TabLayout
-import androidx.viewpager.widget.ViewPager
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
-import com.joker.data.remoteService.ServiceGenerator
-import com.joker.data.remoteService.service.JokeService
-import com.joker.ui.main.SectionsPagerAdapter
+import androidx.viewpager.widget.ViewPager
+import com.google.android.material.tabs.TabLayout
 import com.joker.databinding.ActivityMainBinding
-import com.joker.model.RemoteJokeModel
-import com.joker.utils.Network
-import com.joker.utils.NetworkConnectivity
+import com.joker.ui.main.SectionsPagerAdapter
+import com.joker.viewModel.preView.SharedPreViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlin.system.exitProcess
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-
+    private val sharedPreViewModel by viewModels<SharedPreViewModel>()
+    private var viewPager: ViewPager? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -33,11 +27,20 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
-        val viewPager: ViewPager = binding.viewPager
-        viewPager.adapter = sectionsPagerAdapter
+        viewPager = binding.viewPager
+        viewPager?.adapter = sectionsPagerAdapter
         val tabs: TabLayout = binding.tabs
         tabs.setupWithViewPager(viewPager)
 
+        sharedPreViewModel.getJokeFromServer(this)
+        CoroutineScope(Dispatchers.IO).launch{
+            sharedPreViewModel.getLocalJokes(this@MainActivity)
+        }
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        exitProcess(0)
     }
 }

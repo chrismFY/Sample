@@ -66,4 +66,7 @@ ext {
     rulesVersion = "1.4.1-alpha03"
     espressoVersion = "3.5.0-alpha03"
     robolectricVersion = "4.6.1"
+    pagingVersions = "2.1.1"
+    versionsRoom = "2.2.3"
+
 }
