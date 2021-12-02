@@ -1,11 +1,17 @@
 package com.joker.viewModel.preView
 
+import android.app.Activity
 import android.content.Context
+import android.net.Uri
+import android.widget.Toast
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagedList
+import com.facebook.share.model.ShareLinkContent
+import com.facebook.share.widget.ShareDialog
+import com.joker.BASE_URL
 import com.joker.data.dto.JokeInfo
 import com.joker.data.repository.JokeGetRepository
 import com.joker.utils.dataBase.DBHelper
@@ -59,17 +65,25 @@ class SharedPreViewModel @Inject constructor(private val jokeGetRepository: Joke
     fun addToFavorite(context: Context) {
         jokeInfo.value?.let {
             jokeGetRepository.addToFavorite(it, context) {
+                //lambda is called when inserting successful
                 upDatedId.value = it.id
+                Toast.makeText(context,"added to favorite list",Toast.LENGTH_SHORT).show()
             }
         }
     }
-
 
     fun deleteJoke(joke: JokeInfo, context: Context) {
         jokeGetRepository.deleteJoke(joke,context)
     }
 
-
+    fun shareJoke(activity:Activity,joke: JokeInfo? = jokeInfo.value){
+        val content = ShareLinkContent.Builder()
+            .setContentUrl(Uri.parse(BASE_URL))
+            .setQuote(joke?.joke)
+            .build()
+        val shareDialog = ShareDialog(activity)
+        shareDialog.show(content, ShareDialog.Mode.AUTOMATIC)
+    }
 
 }
 

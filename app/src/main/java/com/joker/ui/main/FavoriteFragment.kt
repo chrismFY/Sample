@@ -46,7 +46,6 @@ class FavoriteFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
             jokeListViewModel = sharedPreViewModel
         }
-        retainInstance = false
 
         return binding.root
     }
@@ -62,6 +61,12 @@ class FavoriteFragment : Fragment() {
                     oldItem == newItem
             })
         joke_list.adapter = adapter
+        adapter.setOnBinder { baseBindingHolder, i ->
+            val binding = baseBindingHolder.binding as ItemJokeListBinding
+            binding.shareInItem.setOnClickListener {
+                activity?.let { it1 -> sharedPreViewModel.shareJoke(it1,binding.jokeInfo) }
+            }
+        }
         activity?.let {
             updateList(it, adapter)
         }

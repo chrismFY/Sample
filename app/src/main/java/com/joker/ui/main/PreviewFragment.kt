@@ -22,19 +22,18 @@ import kotlinx.android.synthetic.main.fragment_main.*
  */
 @AndroidEntryPoint
 class PreviewFragment : Fragment() {
-    private lateinit var binding:FragmentMainBinding
+    private lateinit var binding: FragmentMainBinding
     private val sharedPreViewModel: SharedPreViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main,container,false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
         binding.apply {
             mainFragmentViewModel = sharedPreViewModel
             lifecycleOwner = viewLifecycleOwner
         }
-        retainInstance = false
 
         return binding.root
     }
@@ -54,12 +53,9 @@ class PreviewFragment : Fragment() {
         }
 
         share.setOnClickListener {
-            val content = ShareLinkContent.Builder()
-                .setContentUrl(Uri.parse(BASE_URL))
-                .setQuote(sharedPreViewModel.jokeInfo?.value?.joke)
-                .build()
-            val shareDialog = ShareDialog(this)
-            shareDialog.show(content, ShareDialog.Mode.AUTOMATIC)
+            activity?.let { it1 ->
+                sharedPreViewModel.shareJoke(it1)
+            }
         }
     }
 
