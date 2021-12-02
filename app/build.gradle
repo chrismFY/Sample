@@ -129,6 +129,7 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:1.0.0"
     implementation 'com.facebook.android:facebook-android-sdk:latest.release'
     implementation 'com.facebook.android:facebook-share:latest.release'
+    implementation 'com.github.getActivity:XXPermissions:12.6'
 
 }
 kapt {
