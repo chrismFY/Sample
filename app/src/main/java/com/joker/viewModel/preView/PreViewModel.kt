@@ -19,9 +19,9 @@ import javax.inject.Inject
 class PreViewModel @Inject constructor(private val jokeGetRepository: JokeGetRepository) : BaseViewModel() {
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    private val jokeText : MutableLiveData<String> by lazy { MutableLiveData<String>() }
+    val jokeText : MutableLiveData<String> by lazy { MutableLiveData<String>() }
 
-    fun getJokeFromServer():MutableLiveData<String>{
+    fun getJokeFromServer(){
 
         viewModelScope.launch {
             jokeGetRepository.requestJoke().collect {
@@ -32,7 +32,6 @@ class PreViewModel @Inject constructor(private val jokeGetRepository: JokeGetRep
                 }
             }
         }
-        return jokeText
     }
 
     fun saveJoke(joke:JokeInfo){

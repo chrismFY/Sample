@@ -15,11 +15,11 @@ import kotlin.coroutines.CoroutineContext
  * Created by Yan
  */
 
-class JokeGetRepository @Inject constructor(private val remoteJokeModel: RemoteJokeModel) :
+class JokeGetRepository @Inject constructor(private val remoteJokeModel: RemoteJokeModel,private val ioDispatcher: CoroutineContext) :
     JokeGetRepositorySource {
 
-    override suspend fun requestJoke(): Flow<Resource<JokeInfo>> {
-        return flow { emit(remoteJokeModel.requestJoke()) }.flowOn(Dispatchers.IO)
+  override suspend fun requestJoke(): Flow<Resource<JokeInfo>> {
+        return flow { emit(remoteJokeModel.requestJoke()) }.flowOn(ioDispatcher)
     }
 
 }

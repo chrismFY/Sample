@@ -111,6 +111,8 @@ dependencies {
         exclude group: "com.android.support"
     }
     implementation "androidx.activity:activity-ktx:$activityKtxVersion"
+    implementation "androidx.fragment:fragment-ktx:$activityKtxVersion"
+
     // Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_viewmodels"

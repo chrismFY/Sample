@@ -16,10 +16,12 @@ import com.joker.databinding.ActivityMainBinding
 import com.joker.model.RemoteJokeModel
 import com.joker.utils.Network
 import com.joker.utils.NetworkConnectivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -37,10 +39,5 @@ class MainActivity : AppCompatActivity() {
         tabs.setupWithViewPager(viewPager)
 
 
-//        CoroutineScope(Dispatchers.IO).launch {
-//            val model = RemoteJokeModel(ServiceGenerator(),Network(this@MainActivity))
-//            val res = model.requestJoke()
-//            Log.e("joke ", res.data?.joke?: "empty")
-//        }
     }
 }
