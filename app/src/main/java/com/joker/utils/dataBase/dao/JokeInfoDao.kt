@@ -33,10 +33,10 @@ import kotlinx.coroutines.withContext
 @Dao
 abstract class JokeInfoDao : BaseDao<JokeInfo>() {
 //WHERE isFavorite = 'true'
-    @IsQuery
     @Query("SELECT * FROM JokeInfo ORDER BY `index` DESC")
     abstract  fun getAllRecords(): DataSource.Factory<Int, JokeInfo>
 
+    @IsQuery
     @Query("SELECT * FROM JokeInfo ORDER BY `index` DESC")
     abstract  fun getAllRecords2():Flowable<List<JokeInfo>>
     /**
@@ -52,7 +52,6 @@ abstract class JokeInfoDao : BaseDao<JokeInfo>() {
     suspend fun deleteAllRecords(){
         withContext(Dispatchers.IO){
             deleteAll()
-
         }
     }
 

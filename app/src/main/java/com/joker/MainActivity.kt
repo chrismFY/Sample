@@ -48,6 +48,8 @@ class MainActivity : AppCompatActivity() {
         sharedPreViewModel.getJokeFromServer(this)
         CoroutineScope(Dispatchers.IO).launch{
             sharedPreViewModel.getLocalJokes(this@MainActivity)
+            sharedPreViewModel.getWordsList(this@MainActivity)
+
         }
 
 

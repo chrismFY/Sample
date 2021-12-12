@@ -13,6 +13,7 @@ import com.facebook.share.model.ShareLinkContent
 import com.facebook.share.widget.ShareDialog
 import com.joker.BASE_URL
 import com.joker.data.dto.JokeInfo
+import com.joker.data.dto.Words
 import com.joker.data.repository.JokeGetRepository
 import com.joker.utils.dataBase.DBHelper
 import com.joker.viewModel.BaseViewModel
@@ -34,6 +35,8 @@ class SharedPreViewModel @Inject constructor(private val jokeGetRepository: Joke
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     val jokeInfo: MutableLiveData<JokeInfo> by lazy { MutableLiveData<JokeInfo>() }
     var jokes: LiveData<PagedList<JokeInfo>>? = null
+    var words: LiveData<PagedList<Words>>? = null
+
     //if add a new joke, notify the joke list
     var upDatedId = MutableLiveData<String>()
 
@@ -61,6 +64,17 @@ class SharedPreViewModel @Inject constructor(private val jokeGetRepository: Joke
         }
         return jokes
     }
+
+    suspend fun getWordsList(context: Context): LiveData<PagedList<Words>>? {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                words = jokeGetRepository.getWordsList(context)?:words
+            }
+        }
+        return words
+    }
+
+
 
     fun addToFavorite(context: Context) {
         jokeInfo.value?.let {

@@ -29,14 +29,14 @@ abstract class BaseRemoteModel<T> {
             val body = responseCall.invoke()?.body()
             if (responseCall.invoke()?.isSuccessful == true && body != null){
                 withContext(Dispatchers.Main){
-                    Toast.makeText(App.appContext,"success", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(App.appContext,"success", Toast.LENGTH_SHORT).show()
                 }
                 Resource.Success(data = body)
             }else{
                 val result:Resource<T> = Resource.DataError(errorCode = responseCall.invoke()?.code()?:NETWORK_ERROR)
                 onfail.invoke(result)
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(App.appContext, "erro code:${result.errorCode}", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(App.appContext, "erro code:${result.errorCode}", Toast.LENGTH_SHORT).show()
                 }
                 result
             }
@@ -44,7 +44,7 @@ abstract class BaseRemoteModel<T> {
             val result:Resource<T> = Resource.DataError(errorCode = NETWORK_ERROR)
             onfail.invoke(result)
             withContext(Dispatchers.Main) {
-                Toast.makeText(App.appContext, "erro code:${result.errorCode}", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(App.appContext, "erro code:${result.errorCode}", Toast.LENGTH_SHORT).show()
             }
             result
 
