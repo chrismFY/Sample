@@ -17,4 +17,5 @@ const val USER_NAME_ERROR = -102
 const val CHECK_YOUR_FIELDS = -103
 const val SEARCH_ERROR = -104
 const val HTTP_OK = 204
-const val IN_PROGRESS = 0
+const val IN_PROGRESS = 2
+
