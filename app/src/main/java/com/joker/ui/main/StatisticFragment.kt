@@ -66,6 +66,8 @@ class StatisticFragment : Fragment() {
 
         activity?.let {
             updateList(it, adapter)
+
+
         }
 
         val observer = Observer<String> {
