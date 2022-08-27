@@ -40,6 +40,8 @@ class SharedPreViewModel @Inject constructor(private val jokeGetRepository: Joke
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     val jokeInfo: MutableLiveData<JokeInfo> by lazy { MutableLiveData<JokeInfo>() }
     var jokes: LiveData<PagedList<JokeInfo>>? = null
+    var words: LiveData<PagedList<Words>>? = null
+
     //if add a new joke, notify the joke list
     var upDatedId = MutableLiveData<String>()
     val jokeService = serviceGenerator.createService(JokeService::class.java)
@@ -88,6 +90,17 @@ class SharedPreViewModel @Inject constructor(private val jokeGetRepository: Joke
         }
         return jokes
     }
+
+    suspend fun getWordsList(context: Context): LiveData<PagedList<Words>>? {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                words = jokeGetRepository.getWordsList(context)?:words
+            }
+        }
+        return words
+    }
+
+
 
     fun addToFavorite(context: Context) {
         jokeInfo.value?.let {

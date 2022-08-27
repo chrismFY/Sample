@@ -5,10 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.paging.PagedList
 import com.joker.data.dto.JokeInfo
 import com.joker.data.dto.Resource
+import com.joker.data.dto.Words
 import com.joker.model.LocalJokeModel
 import com.joker.model.RemoteJokeModel
 import com.joker.utils.ioThread
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -46,6 +46,10 @@ class JokeGetRepository @Inject constructor(
 
     override fun deleteJoke(joke: JokeInfo, context: Context) = ioThread{
         localJokeModel.deleteJoke(joke,context)
+    }
+
+    override suspend fun getWordsList(context: Context): LiveData<PagedList<Words>>? {
+        return localJokeModel.getWordsList(context)
     }
 
 

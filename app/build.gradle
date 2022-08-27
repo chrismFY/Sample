@@ -18,7 +18,7 @@ android {
         versionCode 1
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
-        testInstrumentationRunner "com.task.CustomTestRunner"
+        testInstrumentationRunner "com.joker.CustomTestRunner"
     }
     buildFeatures {
         viewBinding = true
@@ -87,10 +87,10 @@ dependencies {
     implementation "com.squareup.picasso:picasso:$picassoVersion"
     implementation "androidx.lifecycle:lifecycle-runtime:2.2.0"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$livedata_ktx"
-    androidTestImplementation "androidx.test.ext:junit-ktx:$androidXJunitVersion"
     /**-------------------testing libs------------------------------------------**/
     //UI Testing , AndroidJUnitRunner and JUnit Rules &Espresso dependencies
     //junit 5
+    androidTestImplementation "androidx.test.ext:junit-ktx:$androidXJunitVersion"
     testImplementation "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
     testImplementation "io.mockk:mockk:$mockVersion"
     androidTestImplementation "org.assertj:assertj-core:$assertjVersion"
@@ -99,6 +99,20 @@ dependencies {
     implementation "androidx.arch.core:core-testing:$coreTestingVersion"
     implementation "androidx.test.espresso:espresso-idling-resource:$espressoVersion"
     implementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
+
+    androidTestImplementation "org.assertj:assertj-core:$assertjVersion"
+    androidTestImplementation 'androidx.test:core:' + rootProject.coreVersion;
+    androidTestImplementation 'androidx.test.ext:junit:' + rootProject.extJUnitVersion;
+    androidTestImplementation 'androidx.test:runner:' + rootProject.runnerVersion;
+//    androidTestImplementation('androidx.test:rules:1.4.0')
+    androidTestImplementation 'androidx.test.espresso:espresso-core:' + rootProject.espressoVersion;
+    androidTestImplementation 'org.robolectric:annotations:' + rootProject.robolectricVersion;
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$espressoIntentsVersion"
+
+    testImplementation 'androidx.test:core:' + rootProject.coreVersion;
+    testImplementation 'androidx.test.ext:junit:' + rootProject.extJUnitVersion;
+    testImplementation 'androidx.test.espresso:espresso-core:' + rootProject.espressoVersion;
+    testImplementation 'org.robolectric:robolectric:' + rootProject.robolectricVersion;
     /**-------------------------------------------------------------**/
     //android support
     implementation "androidx.appcompat:appcompat:$appcompatVersion"

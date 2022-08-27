@@ -2,6 +2,8 @@
     <string name="app_name">SampleForAtimi</string>
     <string name="tab_text_1">Joke</string>
     <string name="tab_text_2">Favorite</string>
+    <string name="tab_text_statistic">Statistic</string>
+
     <string name="no_data">No Data</string>
     <string name="search_by_name">Downloading</string>
     <string name="search_error">there is no such recipe name</string>

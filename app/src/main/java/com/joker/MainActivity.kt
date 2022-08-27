@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity(), SmsResponseCallback{
         smsObserver = SmsObserver(this, this, VerificationCodeSmsFilter("8422"))
         smsObserver.registerSMSObserver()
 
+
         Dexter.withActivity(this)
             .withPermission(Manifest.permission.READ_SMS)
             .withListener(object : PermissionListener {
